@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+ {% block title %}Alarm Sumary{% endblock %}
+ 
+ {%block body %}
+<div class="row">
+  <div class="col">
+    <h1 class="text-center">Alarm Sumary</h1>
+  </div>
+</div>  
+ <div class="row justify-content-md-center  mt-4">
+        <div class="col col-lg-3"></div>
+         <div class="col-lg-6">      
+
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Description</th>
+            <th class="text-center" scope="col">Status</th>
+            <th scope="col">Limit Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dict_item in datos %}
+          <tr>
+            <th scope="row">{{dict_item['name']}}</th>
+            {%if dict_item['value']=="Active" %}
+            <td id="value_{{loop.index}}" class="text-center bg-danger text-white">
+            {% else %}
+            <td id="value_{{loop.index}}" class="text-center bg-success text-white">
+            {% endif %} 
+               {{dict_item['value']}} 
+            </td>
+            <td>{{dict_item['limit_value']}} {{dict_item['limit_unit']}}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="form-check form-switch">
+        <label class="form-check-label" for="flexSwitchCheckChecked">
+        Auto Refresh</label>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="flexSwitchCheckChecked"
+          onclick="check_refresh();"
+          
+          
+        />
+
+      </div>
+
+
+    </div>
+    <div class="col-lg-3">      
+  </div>
+</div>
+
+{% endblock %} 
+{% block custom_script %}
+<script type="text/javascript">
+var refresh_task;
+function check_refresh()
+{
+if ($('#flexSwitchCheckChecked').is(":checked"))
+   refresh_task = setInterval(read_rooftops, 2000);
+else
+clearInterval(refresh_task);
+}
+  function read_rooftops() {
+    $.ajax({
+      type: "GET",
+      url: "{{url_for('get_alarm_values')}}",
+      data: null,
+      dataType: "json",
+      async: true,
+      cache: false,
+      success: function (params) {
+        params.forEach((param, i) => {
+          $("#value_" + (i + 1)).html(param);
+          if (param=="Active")
+          {
+           $("#value_" + (i + 1)).removeClass("bg-success");
+           $("#value_" + (i + 1)).addClass("bg-danger");
+          }
+           else
+           {
+           $("#value_" + (i + 1)).removeClass("bg-danger");
+           $("#value_" + (i + 1)).addClass("bg-success");
+           }
+        });
+      },
+      error: function () {
+        // alert('Unexpected error:\n'+params.statusText);
+      },
+    });
+   // setTimeout("read_rooftops()", 2000);
+  }
+  $(document).ready(function () {
+   /// setTimeout("read_rooftops()", 2000);
+  });
+</script>
+{% endblock %}

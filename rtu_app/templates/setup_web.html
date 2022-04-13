@@ -1,0 +1,221 @@
+{% extends "layout.html" %}
+ {% block title %}Web Server Settings{% endblock %}
+ {%block body %}
+<div class="row">
+  <div class="col">
+    <h1 class="text-center">Web Server Settings</h1>
+      {% with messages = get_flashed_messages(with_categories=true)  %}
+      {% if messages %}
+      {% for category,message in messages %}
+
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+   {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+  </div>
+</div>  
+  <div class="row mt-4">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      
+  <form action="{{url_for('write_web_config')}}" method="POST">
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Description</th>
+            <th class="text-center" scope="col">Value</th>
+            <th class="text-center" scope="col">New Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="pt-3">Web Upload (min)</th>
+            <td class="text-center pt-3">
+               {{config['web_period']}}
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                <input type="number" id="typeNumber"  step="1" min="0" max="20" value="{{config['web_period']}}"  onKeyUp="if(this.value>20){this.value='20';}else if(this.value<0){this.value='0';}"  class="form-control"
+                name="web_period" />
+              </div>            
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">RTU Number</th>
+            <td class="text-center pt-3">
+               {{config['rtu_number']}}
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                <input type="number" id="typeNumber"  step="1" min="1" max="40" value="{{config['rtu_number']}}"  onKeyUp="if(this.value>40){this.value='40';}else if(this.value<1){this.value='1';}"  class="form-control"
+                name="rtu_number" />
+              </div>            
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">Total RTUs</th>
+            <td class="text-center pt-3">
+               {{config['total_rtus']}}
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                <input type="number" id="typeNumber"  step="1" min="1" max="40" value="{{config['total_rtus']}}"  onKeyUp="if(this.value>40){this.value='40';}else if(this.value<1){this.value='1';}"  class="form-control"
+                name="total_rtus" />
+              </div>            
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">Rooftop User Code</th>
+            <td class="text-center pt-3">
+               {{config['user_rtu']}}
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                <input type="number" id="typeNumber"  step="1" min="0" max="10000" value="{{config['user_rtu']}}"  onKeyUp="if(this.value>10000){this.value='10000';}else if(this.value<0){this.value='0';}"  class="form-control"
+                name="user_rtu" />
+              </div>            
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row" class="pt-3">Trending Upload</th>
+            <td class="text-center pt-3">
+               {% if config['trend_opc']==0 %}
+                No Upload
+               {% elif config['trend_opc']==1 %} 
+                Exclusive Upload
+               {% else %}
+                Normal Upload
+               {% endif %}
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                <select class="form-select" name="trend_opc" >
+                  {% if config['trend_opc']==0 %}
+                  <option value="0" selected>No Upload</option>
+                  {% else %}
+                  <option value="0" >No Upload</option>
+                  {% endif %}
+                  {% if config['trend_opc']==1 %}
+                  <option value="1" selected>Exclusive Upload</option>
+                  {% else %}
+                  <option value="1" >Exclusive Upload</option>
+                  {% endif %}
+                  {% if config['trend_opc']>1 %}
+                  <option value="2" selected>Normal Upload</option>
+                  {% else %}
+                  <option value="2" >Normal Upload</option>
+                  {% endif %}
+                </select>
+              </div>            
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <th scope="row" class="pt-3">IAQ User Code</th>
+            <td class="text-center pt-3">
+               {{config['user_aqs']}}
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                <input type="number" id="typeNumber"  step="1" min="0" max="10000" value="{{config['user_aqs']}}"  onKeyUp="if(this.value>10000){this.value='10000';}else if(this.value<0){this.value='0';}"  class="form-control"
+                name="user_aqs" />
+              </div>            
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <div class="text-center mb-4">
+        <!-- Button trigger modal -->
+         <button type="submit" class="btn btn-outline-dark">Change Values</button>
+      </div>
+        <table class="table table-striped table-bordered ">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Web Status</th>
+            <th class="text-center" scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="pt-3">Last Upload</th>
+            <td class="text-center pt-3">
+               {{config['last_upload']}}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">RTU values  Upload</th>
+            {%if error[0]>200 %}
+            <td class="text-center bg-danger text-white">
+            {% else %}
+            <td  class="text-center bg-success text-white">
+            {% endif %} 
+             {{error[0]}}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">IAQ values Upload</th>
+            {%if error[1]>200 %}
+            <td class="text-center bg-danger text-white">
+            {% else %}
+            <td  class="text-center bg-success text-white">
+            {% endif %} 
+             {{error[1]}}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">Command values Upload</th>
+            {%if error[2]>200 %}
+            <td class="text-center bg-danger text-white">
+            {% else %}
+            <td  class="text-center bg-success text-white">
+            {% endif %} 
+             {{error[2]}}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">IAQ historic Upload</th>
+            {%if error[3]>200 %}
+            <td class="text-center bg-danger text-white">
+            {% else %}
+            <td  class="text-center bg-success text-white">
+            {% endif %} 
+             {{error[3]}}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="pt-3">Trending  Upload</th>
+            {%if error[4]>200 %}
+            <td class="text-center bg-danger text-white">
+            {% else %}
+            <td  class="text-center bg-success text-white">
+            {% endif %} 
+             {{error[4]}}
+            </td>
+          </tr>
+
+        </tbody>
+        </table>
+
+  </form>      
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
+{% endblock %} 
+
+
+{% block custom_script %}
+<script type="text/javascript">
+var refresh_task;
+</script>
+{% endblock %}
+

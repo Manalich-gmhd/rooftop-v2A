@@ -1,0 +1,21 @@
+<email_cfg>
+	<server>smtp.gmail.com</server>
+	<from>reynaldomanalich@gmail.com</from>
+	<port>587</port>
+	<user_name>reynaldomanalich@gmail.com</user_name>
+	<password>zyzfvsyjdiytzzhr</password>
+	<message>
+		<id>1</id>
+		<to>reynaldo@greenmediahd.com</to>
+		<cc>NONE</cc>
+		<subject>Testing</subject>
+		<body>Test MessageZone 1 temperature above advisable threshold {{UI1}} °F, please inspect HVAC elements because wire 
+sheet control value SV3={{SV3}} °F is out of bounds. Wire sheet value SV2={SV2}} °F. Cooling stage 1 
+is in {{BO1}} state, Cooling stage 2 is in {{BO2}} state, and Fan is in {{BO3}} state.</body>
+		<sedona_values>
+			<sv1>0.0</sv1>
+			<sv2>0.0</sv2>
+			<sv3>0.0</sv3>
+		</sedona_values>
+	</message>
+</email_cfg>

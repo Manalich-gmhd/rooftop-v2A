@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{url_for('static', filename='img/favicon.png')}}" rel="icon">
+      <!-- BOOSTRAP 5 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+   {% block custom_style %}{% endblock %}
+    <style>
+      html, body {
+        height: 100%;
+        background:#f8f9fa;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+</style>
+
+</head>
+
+<body class="bg-blue">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+ 
+  <div class="container-fluid">
+   <span class="navbar-brand mx-4 px-4 mb-0 h1">RTU-SC/V2A</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      
+      <a {% if request.endpoint=='index' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('index')}}">Home</a>          
+      <a {% if request.endpoint=='energy' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('energy')}}">Energy Saving</a>  
+      <a {% if request.endpoint=='trending' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('trending')}}">Trendings</a>               
+      <a {% if request.endpoint=='alarm' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('alarm')}}">Alarm</a>          
+      <a {% if request.endpoint=='sensor' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('sensor')}}">Sensor Status</a>          
+      <a {% if request.endpoint=='setpoints' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('setpoints')}}">Set Points</a>
+      <a {% if request.endpoint=='schedules' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('schedules')}}">Schedules</a>      
+      {% if conf['enabled']==1 %}
+      <a {% if request.endpoint=='air_sensors' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('air_sensors')}}">Air Sensors</a>            
+      {% endif %}
+
+       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Setup
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a {% if request.endpoint=='alarm_limit' %}class="dropdown-item active" {% else %}class="dropdown-item"{% endif %} href="{{url_for('alarm_limit')}}">Alarm Limits</a></li>
+            <li><a {% if request.endpoint=='sensor_limit' %}class="dropdown-item active" {% else %}class="dropdown-item"{% endif %} href="{{url_for('sensor_limit')}}">Sensor Limits</a></li>
+            <li><a {% if request.endpoint=='speed_limit' %}class="dropdown-item active" {% else %}class="dropdown-item"{% endif %} href="{{url_for('speed_limit')}}">Fan Speed Limits</a></li>
+
+            <li><a {% if request.endpoint=='config_values' %}class="dropdown-item active" {% else %}class="dropdown-item"{% endif %} href="{{url_for('config_values')}}">Air Sensors</a></li>
+
+            <li><a {% if request.endpoint=='config_web_values' %}class="dropdown-item active" {% else %}class="dropdown-item"{% endif %} href="{{url_for('config_web_values')}}">Web Server Setup</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li><a {% if request.endpoint=='miscell_values' %}class="dropdown-item active" {% else %}class="dropdown-item"{% endif %} href="{{url_for('miscell_values')}}">Controller</a></li>
+
+          </ul>
+        </li>    
+      <a {% if request.endpoint=='controller' %}class="nav-link active" aria-current="page"{% else %}class="nav-link"{% endif %} href="{{url_for('controller')}}" target="_blank">Admin</a>                
+
+      </ul>
+      {% block override %}{% endblock %}
+
+    </div>
+  </div>
+</nav>
+
+ <div class="container wrapper pt-4">
+      {% block body %}
+      {% endblock %}
+  </div>
+
+  <footer class="footer mt-auto py-3 bg-secondary text-white ">
+  <div class="container text-center ">
+    User Interface created by GreenmediaHD LLC
+  </div>
+</footer>
+     <script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+     <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+
+      {% block custom_script %}
+      {% endblock %}
+
+</body>
+</html>
+

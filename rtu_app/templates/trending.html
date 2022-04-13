@@ -1,0 +1,733 @@
+{% extends "layout.html" %} {% block title %}Values Trending{% endblock %}
+ {% block custom_style %}
+ <style>
+ .full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    padding-left:5%;
+    padding-right:5%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+ </style>
+ {% endblock %}
+{%block body %}
+<div class="full-width">
+<div class="row">
+  <div class="col">
+    <h1 class="text-center">Values Trending</h1>
+  </div>
+</div>
+<div class="row  mt-3">
+  <div class="col-lg-6">
+    <div class="card text-dark border-dark">
+      <div class="card-header">VSD, Space and Coil Temperatures</div>
+      <div class="card-body">
+        <canvas id="Chart1" height="130"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card text-dark border-dark">
+      <div class="card-header">VSD and Suction Pressure</div>
+      <div class="card-body">
+        <canvas id="Chart2" height="130"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row  mt-3">
+  <div class="col-lg-6">
+    <div class="card text-dark border-dark">
+      <div class="card-header">VSD and Superheat</div>
+      <div class="card-body">
+        <canvas id="Chart3" height="130"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card text-dark border-dark">
+      <div class="card-header">VSD and CO2</div>
+      <div class="card-body">
+        <canvas id="Chart4" height="130"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row  mt-5">
+  <div class="col-lg-1"></div>
+  <div class="col-lg-10">
+    <div class="form-check form-switch">
+      <label class="form-check-label" for="flexSwitchCheckChecked">
+        Auto Refresh</label
+      >
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchCheckChecked"
+        onclick="check_refresh();"
+      />
+    </div>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+
+</div>
+  {% endblock %} {% block custom_script %}
+  <!-- Chart Plugins Js -->
+  <script src="{{url_for('static', filename='js/chart.js')}}"></script>
+
+  <script type="text/javascript">
+
+    var refresh_task;
+    function check_refresh()
+    {
+    if ($('#flexSwitchCheckChecked').is(":checked"))
+       refresh_task = setInterval(read_historic, 60000);
+    else
+    clearInterval(refresh_task);
+    }
+
+
+      function read_historic() {
+        $.ajax({
+          type: "GET",
+          url: "{{url_for('get_historic')}}",
+          data: null,
+          dataType: "json",
+          async: true,
+          cache: false,
+          success: function (params) {
+            if (params.length==0) return;
+            params.forEach((param, i) => {
+              labels_x[i]=param[8];
+              data_vsd[i]=param[0];
+              data_tcoil[i] =param[1];
+              data_spress1[i] =param[2];
+              data_stemp1[i] =param[4];
+              data_co2[i] =param[6];
+              data_tspc[i] =param[7];
+              if (total_comp>1)
+              {
+              data_spress2[i] =param[3];
+              data_stemp2[i] =param[5];
+              }
+
+            });
+              maxvalue_vsd = Math.max(...data_vsd) * 1.1;
+              maxvalue_tcoil = Math.max(...data_tcoil) * 1.1;
+              maxvalue_spress1 = Math.max(...data_spress1) * 1.1;
+              maxvalue_stemp1 = Math.max(...data_stemp1) * 1.1;
+              maxvalue_co2 = Math.max(...data_co2) * 1.1;
+              maxvalue_tspc = Math.max(...data_tspc) * 1.1;
+              if (total_comp>1)
+              {
+              maxvalue_spress2 = Math.max(...data_spress2) * 1.1;
+              maxvalue_stemp2 = Math.max(...data_stemp2) * 1.1;
+              }
+            for (i = 0; i < 120; i++) {
+              if (data_vsd[i] != null)
+               if (data_vsd[i] < minvalue_vsd) minvalue_vsd = data_vsd[i];
+              if (data_tcoil[i] != null)
+               if (data_tcoil[i] < minvalue_tcoil) minvalue_tcoil = data_tcoil[i];
+              if (data_spress1[i] != null)
+               if (data_spress1[i] < minvalue_spress1) minvalue_spress1 = data_spress1[i];
+              if (data_stemp1[i] != null)
+               if (data_stemp1[i] < minvalue_stemp1) minvalue_stemp1 = data_stemp1[i];
+              if (data_co2[i] != null)
+               if (data_co2[i] < minvalue_co2) minvalue_co2 = data_co2[i];
+              if (data_tspc[i] != null)
+               if (data_tspc[i] < minvalue_tspc) minvalue_tspc = data_tspc[i];
+
+              if (total_comp>1)
+              {
+              if (data_spress2[i] != null)
+               if (data_spress2[i] < minvalue_spress2) minvalue_spress2 = data_spress2[i];
+              if (data_stemp2[i] != null)
+               if (data_stemp2[i] < minvalue_stemp2) minvalue_stemp2 = data_stemp2[i];              }
+
+            }
+            minvalue_vsd = minvalue_vsd * 0.9;
+            if (maxvalue_vsd == minvalue_vsd) maxvalue_vsd = minvalue_vsd + 1;
+            minvalue_tcoil = minvalue_tcoil * 0.9;
+            if (maxvalue_tcoil == minvalue_tcoil) maxvalue_tcoil = minvalue_tcoil + 1;
+            minvalue_spress1 = minvalue_spress1 * 0.9;
+            if (maxvalue_spress1 == minvalue_spress1) maxvalue_spress1 = minvalue_spress1 + 1;
+
+            minvalue_stemp1 = minvalue_stemp1 * 0.9;
+            if (maxvalue_stemp1 == minvalue_stemp1) maxvalue_stemp1 = minvalue_stemp1 + 1;
+
+            minvalue_co2 = minvalue_co2 * 0.9;
+            if (maxvalue_co2 == minvalue_co2) maxvalue_co2 = minvalue_co2 + 1;
+            minvalue_tspc = minvalue_tspc * 0.9;
+            if (maxvalue_tspc == minvalue_tspc) maxvalue_tspc = minvalue_tspc + 1;
+
+            if (maxvalue_tspc>maxvalue_tcoil)
+               maxvalue_tcoil=maxvalue_tspc;
+            if (minvalue_tspc<minvalue_tcoil)
+               minvalue_tcoil=minvalue_tspc;
+
+
+            if (total_comp>1)
+            {
+            minvalue_spress2 = minvalue_spress2 * 0.9;
+            if (maxvalue_spress2 == minvalue_spress2) maxvalue_spress2 = minvalue_spress2 + 1;
+            if (maxvalue_spress2>maxvalue_spress1)
+               maxvalue_spress1=maxvalue_spress2;
+            if (minvalue_spress2<minvalue_spress1)
+               minvalue_spress1=minvalue_spress2;
+
+            minvalue_stemp2 = minvalue_stemp2 * 0.9;
+            if (maxvalue_stemp2 == minvalue_stemp2) maxvalue_stemp2 = minvalue_stemp2 + 1;
+            if (maxvalue_stemp2>maxvalue_stemp1)
+               maxvalue_stemp1=maxvalue_stemp2;
+            if (minvalue_stemp2<minvalue_stemp1)
+               minvalue_stemp1=minvalue_stemp2;
+
+            }
+
+
+
+            //console.log(minvalue_vsd,maxvalue_vsd);
+            Chart1.options.scales.y.min=Math.round(minvalue_vsd);
+            Chart1.options.scales.y.max=Math.round(maxvalue_vsd);
+            Chart1.options.scales.y1.min=Math.round(minvalue_tcoil);
+            Chart1.options.scales.y1.max=Math.round(maxvalue_tcoil);
+
+            Chart2.options.scales.y.min=Math.round(minvalue_vsd);
+            Chart2.options.scales.y.max=Math.round(maxvalue_vsd);
+            Chart2.options.scales.y1.min=Math.round(minvalue_spress1);
+            Chart2.options.scales.y1.max=Math.round(maxvalue_spress1);
+
+            Chart3.options.scales.y.min=Math.round(minvalue_vsd);
+            Chart3.options.scales.y.max=Math.round(maxvalue_vsd);
+            Chart3.options.scales.y1.min=Math.round(minvalue_stemp1);
+            Chart3.options.scales.y1.max=Math.round(maxvalue_stemp1);
+
+            Chart4.options.scales.y.min=Math.round(minvalue_vsd);
+            Chart4.options.scales.y.max=Math.round(maxvalue_vsd);
+            Chart4.options.scales.y1.min=Math.round(minvalue_co2);
+            Chart4.options.scales.y1.max=Math.round(maxvalue_co2);
+
+            Chart1.update();
+            Chart2.update();
+            Chart3.update();
+            Chart4.update();
+          },
+          error: function () {
+             alert('Unexpected error:\n'+params.statusText);
+          },
+        });
+      }
+
+
+      var ctx = document.getElementById("Chart1");
+      var ctx1 = document.getElementById("Chart2");
+      var ctx2 = document.getElementById("Chart3");
+      var ctx3 = document.getElementById("Chart4");
+
+      var labels_x = new Array(120); //144
+      var data_vsd = new Array(120); //speed
+      var data_tcoil = new Array(120); //temp coil
+      var data_spress1 = new Array(120); //suction press 1
+      var data_spress2 = new Array(120); //suction press 2
+      var data_stemp1 = new Array(120); //superheat 1
+      var data_stemp2 = new Array(120); //superheat 2
+      var data_co2 = new Array(120); //CO2
+      var data_tspc = new Array(120); //CO2
+
+      var maxvalue_vsd = 0;
+      var minvalue_vsd = 10000;
+      var maxvalue_tcoil = 0;
+      var minvalue_tcoil = 10000;
+      var maxvalue_tspc = 0;
+      var minvalue_tspc = 10000;
+
+      var maxvalue_spress1 = 0;
+      var minvalue_spress1 = 10000;
+      var maxvalue_spress2 = 0;
+      var minvalue_spress2 = 10000;
+
+      var maxvalue_stemp1 = 0;
+      var minvalue_stemp1 = 10000;
+      var maxvalue_stemp2 = 0;
+      var minvalue_stemp2 = 10000;
+
+      var maxvalue_co2 = 0;
+      var minvalue_co2 = 10000;
+
+      for (i = 0; i < 120; i++) {
+        labels_x[i] = "";
+        data_vsd[i] = null;
+        data_tcoil[i] = null;
+        data_spress1[i] = null;
+        data_spress2[i] = null;
+        data_stemp1[i] = null;
+        data_stemp2[i] = null;
+        data_co2[i] = null;
+        data_tspc[i] = null;
+      }
+      var total_comp={{comp}};
+
+
+
+      const data = {
+        labels: labels_x,
+        datasets: [
+          {
+            label: "Fan Hz",
+            data: data_vsd,
+            yAxisID: "y",
+            borderColor: "rgba(63,81,181, 0.75)",
+            backgroundColor: "rgba(63,81,181, 0.3)",
+            pointBorderColor: "rgba(63,81,181, 0)",
+            fill: false,
+            pointBackgroundColor: "rgba(63,81,181, 0.9)",
+            pointBorderWidth: 1,
+            BorderWidth: 2,
+          },
+          {
+            label: "Coil Temp",
+            data: data_tcoil,
+            yAxisID: "y1",
+            borderColor: 'rgba(103,58,183, 0.75)',
+            backgroundColor: 'rgba(103,58,183, 0.3)',
+            pointBorderColor: 'rgba(103,58,183, 0)',
+            pointBackgroundColor: 'rgba(103,58,183, 0.9)',
+            fill: false,
+            pointBorderWidth: 1,
+            BorderWidth: 2,
+          },
+          {
+            label: "Space Temp",
+            data: data_tspc,
+            yAxisID: "y1",
+            borderColor: 'rgba(15,79,34, 0.75)',
+            backgroundColor: 'rgba(15,79,34, 0.3)',
+            pointBorderColor: 'rgba(15,79,34, 0)',
+            pointBackgroundColor: 'rgba(15,79,34, 0.9)',
+            fill: false,
+            pointBorderWidth: 1,
+            BorderWidth: 2,
+          },
+
+
+        ],
+      };
+
+      const config = {
+        type: "line",
+        data: data,
+        options: {
+          responsive: true,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
+          stacked: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+            /*
+            title: {
+              display: true,
+              text: "VSD Sintonization",
+            },*/
+          },
+          scales: {
+            x: {
+              display: true,
+              beginAtZero: false,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                //text: "Day-Hour:Minute",
+              },
+            },
+            y: {
+              type: "linear",
+              display: true,
+              position: "left",
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Fan Speed Hz",
+              },
+            },
+            y1: {
+              type: "linear",
+              display: true,
+              position: "right",
+              // grid line settings
+              grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              },
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Temperatures",
+              },
+            },
+
+          },
+        },
+      };
+    /////////////////////Suction Pressures/////////////
+      const data1 = {
+        labels: labels_x,
+        datasets: [
+          {
+            label: "Fan Hz",
+            data: data_vsd,
+            yAxisID: "y",
+            borderColor: "rgba(63,81,181, 0.75)",
+            backgroundColor: "rgba(63,81,181, 0.3)",
+            pointBorderColor: "rgba(63,81,181, 0)",
+            fill: false,
+            pointBackgroundColor: "rgba(63,81,181, 0.9)",
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+          {
+            label: "Suct Press 1",
+            data: data_spress1,
+            yAxisID: "y1",
+            borderColor: 'rgba(255,87,34, 0.75)',
+            backgroundColor: 'rgba(255,87,34, 0.3)',
+            pointBorderColor: 'rgba(255,87,34, 0)',
+            pointBackgroundColor: 'rgba(255,87,34, 0.9)',
+            fill: false,
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+          {
+            label: "Suct Press 2",
+            data: data_spress2,
+            yAxisID: "y1",
+            borderColor: 'rgba(255,152,0, 0.75)',
+            backgroundColor: 'rgba(255,152,0, 0.3)',
+            pointBorderColor: 'rgba(255,152,0, 0)',
+            pointBackgroundColor: 'rgba(255,152,0, 0.9)',
+            fill: false,
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+
+
+        ],
+      };
+
+      const config1 = {
+        type: "line",
+        data: data1,
+        options: {
+          responsive: true,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
+          stacked: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+            /*
+            title: {
+              display: true,
+              text: "VSD Sintonization",
+            },*/
+          },
+          scales: {
+            x: {
+              display: true,
+              beginAtZero: false,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+               // text: "Day-Hour:Minute",
+              },
+            },
+            y: {
+              type: "linear",
+              display: true,
+              position: "left",
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Fan Speed Hz",
+              },
+            },
+            y1: {
+              type: "linear",
+              display: true,
+              position: "right",
+              // grid line settings
+              grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              },
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Suction Pressure",
+              },
+            },
+
+          },
+        },
+      };
+
+
+    /////////////////////Superheat/////////////
+      const data2 = {
+        labels: labels_x,
+        datasets: [
+          {
+            label: "Fan Hz",
+            data: data_vsd,
+            yAxisID: "y",
+            borderColor: "rgba(63,81,181, 0.75)",
+            backgroundColor: "rgba(63,81,181, 0.3)",
+            pointBorderColor: "rgba(63,81,181, 0)",
+            fill: false,
+            pointBackgroundColor: "rgba(63,81,181, 0.9)",
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+          {
+            label: "Superheat 1",
+            data: data_stemp1,
+            yAxisID: "y1",
+            borderColor: 'rgba(76,202,80, 0.75)',
+            backgroundColor: 'rgba(76,202,80, 0.3)',
+            pointBorderColor: 'rgba(76,202,80, 0)',
+            pointBackgroundColor: 'rgba(76,202,80, 0.9)',
+            fill: false,
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+          {
+            label: "Superheat 2",
+            data: data_stemp2,
+            yAxisID: "y1",
+            borderColor: 'rgba(96,125,139, 0.75)',
+            backgroundColor: 'rgba(96,125,139, 0.3)',
+            pointBorderColor: 'rgba(96,125,139, 0)',
+            pointBackgroundColor: 'rgba(96,125,139, 0.9)',
+            fill: false,
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+
+
+        ],
+      };
+
+      const config2 = {
+        type: "line",
+        data: data2,
+        options: {
+          responsive: true,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
+          stacked: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+            /*
+            title: {
+              display: true,
+              text: "VSD Sintonization",
+            },*/
+          },
+          scales: {
+            x: {
+              display: true,
+              beginAtZero: false,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+               // text: "Day-Hour:Minute",
+              },
+            },
+            y: {
+              type: "linear",
+              display: true,
+              position: "left",
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Fan Speed Hz",
+              },
+            },
+            y1: {
+              type: "linear",
+              display: true,
+              position: "right",
+              // grid line settings
+              grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              },
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Superheat",
+              },
+            },
+
+          },
+        },
+      };
+    ///////////////////// CO2 /////////////
+      const data3 = {
+        labels: labels_x,
+        datasets: [
+          {
+            label: "Fan Hz",
+            data: data_vsd,
+            yAxisID: "y",
+            borderColor: "rgba(63,81,181, 0.75)",
+            backgroundColor: "rgba(63,81,181, 0.3)",
+            pointBorderColor: "rgba(63,81,181, 0)",
+            fill: false,
+            pointBackgroundColor: "rgba(63,81,181, 0.9)",
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+          {
+            label: "CO2",
+            data: data_co2,
+            yAxisID: "y1",
+            borderColor: 'rgba(175,96,10, 0.75)',
+            backgroundColor: 'rgba(175,96,10, 0.3)',
+            pointBorderColor: 'rgba(175,96,10, 0)',
+            pointBackgroundColor: 'rgba(175,96,10, 0.9)',
+            fill: false,
+            pointBorderWidth: 2,
+            BorderWidth: 4,
+          },
+
+
+        ],
+      };
+
+      const config3 = {
+        type: "line",
+        data: data3,
+        options: {
+          responsive: true,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
+          stacked: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+            /*
+            title: {
+              display: true,
+              text: "VSD Sintonization",
+            },*/
+          },
+          scales: {
+            x: {
+              display: true,
+              beginAtZero: false,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+               // text: "Day-Hour:Minute",
+              },
+            },
+            y: {
+              type: "linear",
+              display: true,
+              position: "left",
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "Fan Speed Hz",
+              },
+            },
+            y1: {
+              type: "linear",
+              display: true,
+              position: "right",
+              // grid line settings
+              grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              },
+             // min: minvalue,
+             // max: maxvalue,
+              title: {
+                display: true,
+                font: {
+                  size: 16,
+                },
+                text: "CO2",
+              },
+            },
+
+          },
+        },
+      };
+
+
+
+      var Chart1 = new Chart(ctx, config);
+      var Chart2 = new Chart(ctx1, config1);
+      var Chart3 = new Chart(ctx2, config2);
+      var Chart4 = new Chart(ctx3, config3);
+      read_historic();
+  </script>
+  {% endblock %}
+</div>

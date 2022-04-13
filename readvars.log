@@ -1,0 +1,792 @@
+      var = {}
+      var['addr']=21
+      var['name']='SucPress1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=205,
+      var['Type']=2,
+      var['Unit']=56,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='SucPress2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=206,
+      var['Type']=2,
+      var['Unit']=56,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='SupHeat1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=207,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='SupHeat2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=208,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='VFD_Hz'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=209,
+      var['Type']=2,
+      var['Unit']=27,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Min_Comp1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=210,
+      var['Type']=2,
+      var['Unit']=72,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Min_Comp2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=211,
+      var['Type']=2,
+      var['Unit']=72,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='ModeNet'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=214,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='ActualHeatingSetpoint'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=216,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='ActualCoolingSetpoint'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=217,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='HeatingDemand'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=218,
+      var['Type']=2,
+      var['Unit']=98,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='CoolingDemand'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=219,
+      var['Type']=2,
+      var['Unit']=98,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='KwFan'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=227,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Fan60HzKw'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=228,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='FanKwReduction'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=230,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='CompKwReduction'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=231,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='TotalKwReduction'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=232,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='TotalKwhReduction'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=233,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='AveKwhReductionPerHour'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=234,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='AveKwhUnitPerHour'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=235,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='UnitKw'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=236,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='FanSavingPercent'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=237,
+      var['Type']=2,
+      var['Unit']=98,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='FanKwhSaving'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=238,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='CompKwhSaving'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=239,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='UnitKwh'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=240,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='FanRunHours'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=241,
+      var['Type']=2,
+      var['Unit']=71,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Comp1RunHours'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=242,
+      var['Type']=2,
+      var['Unit']=71,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Comp2RunHours'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=243,
+      var['Type']=2,
+      var['Unit']=71,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='ScheduleStatus'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=251,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Comp1_KW'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=266,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Space_Hum'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=267,
+      var['Type']=2,
+      var['Unit']=98,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='OA_Hum'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=268,
+      var['Type']=2,
+      var['Unit']=98,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Comp2_kw'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=285,
+      var['Type']=2,
+      var['Unit']=48,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='VSD_Fault'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=23,
+      var['Type']=3,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Em_Shutdwn'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=24,
+      var['Type']=3,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Filter'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=25,
+      var['Type']=3,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='StartFan'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=31,
+      var['Type']=4,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Start Heater 1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=32,
+      var['Type']=4,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Start Heater 2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=33,
+      var['Type']=4,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Start Compresor 1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=34,
+      var['Type']=4,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Start Compressor 2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=35,
+      var['Type']=4,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='VSD_Enable'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=37,
+      var['Type']=4,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='General_Alarm'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=212,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='High_SHeat_C1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=213,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Low_SHeat_C1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=215,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='HighPressC1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=220,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='LowPressC1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=221,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='High_SHeat_C2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=222,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Low_SHeat_C2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=223,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='HighPressC2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=224,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='LowPressC2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=225,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='HighSupplyTemp'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=226,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='FanKwAlarm'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=229,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Fan_Percent'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=291,
+      var['Type']=2,
+      var['Unit']=98,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Occupy_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=293,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='SPress1_Sensor_Fail'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=294,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='SPress2_Sensor_Fail'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=295,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='STemp1_Sensor_Fail'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=296,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='STemp2_Sensor_Fail'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=297,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Coil_Temp_Sensor_Fail'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=298,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Net_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=299,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Lim_Min_Alarm_SPress'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=286,
+      var['Type']=2,
+      var['Unit']=56,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Lim_Max_Alarm_SPress'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=287,
+      var['Type']=2,
+      var['Unit']=56,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='ForceMode'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=264,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='TCoil1'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=1,
+      var['Type']=0,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='TCoil2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=3,
+      var['Type']=0,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='LvtCoil'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=7,
+      var['Type']=0,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='SaTemp'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=8,
+      var['Type']=0,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Act_Outside_Temp'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=292,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Current_ZnTemp'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=303,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Lim_Min_SHeat_Alarm'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=288,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Lim_Max_SHeat_Alarm'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=289,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Lim_Coil_Temp_Alarm'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=290,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Current_ZnCO2'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=308,
+      var['Type']=2,
+      var['Unit']=96,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Fan_Speed_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=313,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Comp1_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=314,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Comp2_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=315,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Heat1_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=316,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Heat2_Status'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=317,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Temp_Scale'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=318,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Cool_Heat_Stat'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=320,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='System_Mode'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=321,
+      var['Type']=5,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Act_ZnTemp_SP'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=322,
+      var['Type']=2,
+      var['Unit']=64,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Total_Even_Kwh'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=325,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Total_Odd_Kwh'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=326,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Even_Counter'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=327,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Odd_Counter'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=328,
+      var['Type']=2,
+      var['Unit']=95,
+      rtu_read_vars.append(var)
+      var = {}
+      var['addr']=21
+      var['name']='Saved_kWh'
+      var['index']= 1
+      var['value']= 0
+      var['Ident']=329,
+      var['Type']=2,
+      var['Unit']=19,
+      rtu_read_vars.append(var)

@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+ {% block title %}Schedule{% endblock %}
+ {% block custom_style %}
+ <link rel="stylesheet" href="{{url_for('static', filename='css/icon.css')}}">
+ <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-material-datetimepicker.css')}}">
+
+{% endblock %}  
+ {%block body %}
+<div class="row">
+  <div class="col">
+    <h1 class="text-center">Schedule</h1>
+      {% with messages = get_flashed_messages(with_categories=true)  %}
+      {% if messages %}
+      {% for category,message in messages %}
+
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+   {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+  </div>
+</div>  
+  <div class="row mt-4">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      
+  <form action="{{url_for('write_schedule')}}" method="POST">
+
+    <div class="card">
+      <h5 class="card-header">
+      {% if en_sc==1 %}
+      Schedule Enabled 
+      {% else %}
+      Schedule Disabled 
+      {% endif %}
+      </h5>
+      <div class="card-body">
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Schedule days</th>
+            <th  scope="col">Timer ON</th>
+            <th  scope="col">Timer OFF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Weekdays</th>
+            <td  >
+              <input type="text" size="5" class="timepicker form-control" name="timeOn_0" id="timeOn_0" value="{{datos[0]['value_on']}}"
+              >
+            </td>
+            <td >
+              <input type="text" size="5" class="timepicker form-control" name="timeOff_0" id="timeOff_0" value="{{datos[0]['value_off']}}"
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Saturday</th>
+            <td >
+              <input type="text" size="5" class="timepicker form-control" name="timeOn_1" id="timeOn_1" value="{{datos[1]['value_on']}}"
+              >
+            </td>
+            <td >
+              <input type="text" size="5" class="timepicker form-control" name="timeOff_1" id="timeOff_1" value="{{datos[1]['value_off']}}"
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Sunday</th>
+            <td  >
+              <input type="text" size="5" class="timepicker form-control" name="timeOn_2" id="timeOn_2" value="{{datos[2]['value_on']}}"
+              >
+            </td>
+            <td >
+              <input type="text" size="5" class="timepicker form-control" name="timeOff_2" id="timeOff_2" value="{{datos[2]['value_off']}}"
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+         <button type="submit" class="btn btn-outline-dark">Change Schedule</button>
+      </div>
+       
+
+      </div>
+    </div>
+
+
+
+
+  </form>      
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
+{% endblock %} 
+
+
+{% block custom_script %}
+  <!-- Moment Plugin Js -->
+  <script src="{{url_for('static', filename='js/moment.js')}}"></script>
+  <!-- Bootstrap Material Datetime Picker Plugin Js -->
+  <script src="{{url_for('static', filename='js/bootstrap-material-datetimepicker.js')}}"></script>
+<script type="text/javascript">
+    $('.timepicker').bootstrapMaterialDatePicker({
+      format: 'HH:mm',
+     
+      clearButton: false,
+      date: false
+    });
+
+ 
+</script>
+{% endblock %}
+

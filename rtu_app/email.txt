@@ -1,0 +1,8 @@
+To:reynaldo@greenmediahd.com
+From:reynaldo@greenmediahd.com
+Subject:Testing
+
+Test MessageZone 1 temperature above advisable threshold 50.000 °F, please inspect HVAC elements because wire 
+sheet control value SV3=0.0 °F is out of bounds. Wire sheet value SV2={SV2}} °F. Cooling stage 1 
+is in 1 state, Cooling stage 2 is in 0 state, and Fan is in 0 state.
+

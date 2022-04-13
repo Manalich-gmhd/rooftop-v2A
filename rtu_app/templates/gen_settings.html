@@ -1,0 +1,214 @@
+{% extends "layout.html" %}
+ {% block title %}Miscellaneous Settings{% endblock %}
+ {%block body %}
+<div class="row">
+  <div class="col">
+    <h1 class="text-center">Controller Settings</h1>
+      {% with messages = get_flashed_messages(with_categories=true)  %}
+      {% if messages %}
+      {% for category,message in messages %}
+
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+   {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+  </div>
+</div>  
+  <form name="form_y" id="form_y" action="{{url_for('write_units')}}" method="POST">
+
+<div class="row mt-2">
+  <div class="col text-center">
+      <label class="form-label" for="val_conv">Select Temperature Units:</label>  
+      <select onChange="submit_form();" class="selectpicker" name="val_conv" id="val_conv">
+                  {% if conf['conv']==0 %}
+                  <option value="0" selected>Fahrenheit</option>
+                  {% else %}
+                  <option value="0" >Fahrenheit</option>
+                  {% endif %}
+                  {% if conf['conv']==1 %}
+                  <option value="1" selected>Celsius</option>
+                  {% else %}
+                  <option value="1" >Celsius</option>
+                  {% endif %}
+                  </select>
+
+  </div>
+</div>
+</form>
+  <form action="{{url_for('write_miscell')}}" method="POST">
+  <div class="row mt-4">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Description</th>
+            <th class="text-center" scope="col">Value</th>
+            <th class="text-center" scope="col">New Value</th>
+            <th scope="col">Units</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dict_item in datos %}
+          <tr>
+            <th scope="row" class="pt-3">{{dict_item['name']}}</th>
+           
+            <td class="text-center pt-3">
+            
+               {{dict_item['value']}} 
+            </td>
+            <td class="text-center">
+              <div class="form-outline">
+                {% if (dict_item['type'] == 0)or (dict_item['type'] == 1) or (dict_item['type'] == 10) %}
+                <input type="number" id="typeNumber"  step="{{dict_item['step']}}" min="{{dict_item['Min']}}" max="{{dict_item['Max']}}" value="{{dict_item['value']}}"  onKeyUp="if(this.value>{{dict_item['Max']}}){this.value='{{dict_item['Max']}}';}else if(this.value<{{dict_item['Min']}}){this.value='{{dict_item['Min']}}';}"  class="form-control"
+                name="val_{{loop.index}}" />
+                {% elif (dict_item['type'] == 2) or (dict_item['type'] == 12) %}
+                  <div class="form-check form-switch pt-2">
+                  {% if dict_item['value']=='ON' %}
+                    <input class="form-check-input" type="checkbox"  checked id="flexSwitchCheckChecked" name="val_{{loop.index}}">
+                  {% else %}
+                    <input class="form-check-input" type="checkbox"  id="flexSwitchCheckChecked"  name="val_{{loop.index}}">
+                  {% endif %}
+
+                  </div>
+                {% elif (dict_item['type'] == 4) %}
+                  <select class="form-select" name="val_{{loop.index}}" >
+                  {% if dict_item['value']=='Auto' %}
+                  <option value="1" selected>Auto</option>
+                  {% else %}
+                  <option value="1" >Auto</option>
+                  {% endif %}
+                  {% if dict_item['value']=='Continuous' %}
+                  <option value="2" selected>Continuous</option>
+                  {% else %}
+                  <option value="2" >Continuous</option>
+                  {% endif %}
+                  </select>
+                {% elif (dict_item['type'] == 5) %}
+                  <select class="form-select" name="val_{{loop.index}}" >
+                  {% if dict_item['value']=='Auto' %}
+                  <option value="0" selected>Auto</option>
+                  {% else %}
+                  <option value="0" >Auto</option>
+                  {% endif %}
+                  {% if dict_item['value']=='Cooling' %}
+                  <option value="1" selected>Cooling</option>
+                  {% else %}
+                  <option value="1" >Cooling</option>
+                  {% endif %}
+                  {% if dict_item['value']=='Heating' %}
+                  <option value="2" selected>Heating</option>
+                  {% else %}
+                  <option value="2" >Heating</option>
+                  {% endif %}
+                  </select>
+                {% else %}
+                  <select class="form-select" name="val_{{loop.index}}" >
+                  {% if dict_item['value']=='R22' %}
+                  <option value="1" selected>R22</option>
+                  {% else %}
+                  <option value="1" >R22</option>
+                  {% endif %}
+                  {% if dict_item['value']=='R410A' %}
+                  <option value="2" selected>R410A</option>
+                  {% else %}
+                  <option value="2" >R410A</option>
+                  {% endif %}
+                  {% if dict_item['value']=='R407C' %}
+                  <option value="3" selected>R407C</option>
+                  {% else %}
+                  <option value="3" >R407C</option>
+                  {% endif %}
+
+                </select>
+                {% endif %}
+              </div>            
+            </td>
+            <td class="pt-3">
+           
+            {{dict_item['unit']}}
+            </td>
+
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="text-center mb-5">
+      <!-- Button trigger modal -->
+<button type="button" class="me-5 btn btn-danger" data-bs-toggle="modal" data-bs-target="#resetModal">
+  Reset Energy Values
+</button>
+         <button type="submit" class="ms-5 btn btn-outline-dark">Change Values</button>
+         </div>
+  
+    </div>
+    <div class="col-sm-1"></div>
+    </div>
+</div>
+  </form>      
+
+<!-- Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resetModalLabel">Reset Energy Values</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>All the energy calculated values will be initialized to zero, are you sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" onClick="send_reset();" class="btn btn-danger">Reset Values</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
+
+
+{% block custom_script %}
+<script type="text/javascript">
+var refresh_task;
+var myModal = new bootstrap.Modal(document.getElementById('resetModal'));
+
+function make_reset() {
+    $.ajax({
+      type: "GET",
+      url: "{{url_for('reset_energy_values')}}",
+      data: null,
+      dataType: "json",
+      async: true,
+      cache: false,
+      success: function (params) {
+        
+      },
+      error: function () {
+        // alert('Unexpected error:\n'+params.statusText);
+      },
+    });
+   // setTimeout("read_rooftops()", 2000);
+  }
+
+function submit_form(){
+	var theform=document.form_y;
+  theform.submit();
+}
+function send_reset()
+{
+  //alert('paso 2');
+ // var myModal = new bootstrap.Modal(document.getElementById('resetModal'));
+  make_reset();
+  myModal.hide();
+}
+</script>
+{% endblock %}
+

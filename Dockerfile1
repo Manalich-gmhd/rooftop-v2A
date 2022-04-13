@@ -1,0 +1,20 @@
+#Dockerfile, Image, Container
+FROM python:3.7.3
+
+ADD main.py .
+
+RUN pip install requests beautifulsoap4
+
+CMD ["python","./main.py"]
+
+
+
+#comandos para docker
+#crear imagen
+#docker build -t python-imdb .
+
+#cargar imagen
+#docker run python-imdb
+
+#si se quere una terminal con interaccion
+#docker run -t -i python-imdb

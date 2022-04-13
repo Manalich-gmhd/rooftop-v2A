@@ -1,0 +1,21 @@
+      <div class="me-2">
+           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#overrideModal"> Overwrite </button>
+      </div>
+<!-- Modal -->
+<div class="modal fade" id="overrideModal" tabindex="-1" aria-labelledby="overrideModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="overrideModalLabel">Override Gateway Values</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The Gateway Commands will be overriden for 10 minutes, are you sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" onClick="send_reset();" class="btn btn-danger">Override Values</button>
+      </div>
+    </div>
+  </div>
+</div>
